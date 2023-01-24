@@ -601,7 +601,7 @@ const BillingFormNoAuth = () => {
 
   // effects
   useEffect(() => {
-    document.title = "Nira Deosthan";
+    document.title = "Datta Mandir Billling";
   }, []);
   // last pawti
   useEffect(() => {
