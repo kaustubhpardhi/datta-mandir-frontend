@@ -1,0 +1,15 @@
+.loginImg {
+  height: 120px;
+  margin-left: 20px;
+  margin-bottom: 10px;
+  width: 250px;
+}
+.logo {
+  margin-bottom: 30px;
+  width: 150px;
+}
+/* @media (max-width: 500px) {
+  .loginImg {
+    margin-left: 100px;
+  }
+} */
