@@ -747,74 +747,42 @@ const BillingFormNoAuth = () => {
       //     }
       //   })
       //   .catch((error) => console.log(error));
-      if (forWhich === "अन्नछत्र") {
-        axios
-          .post("/receipt/payout", createOrderData)
-          .then((res) => {
-            const secrete = res.data.message;
-            if (secrete) {
-              // setReceipt({ pawti, name, date, mobile, email, forWhich, amount, state, day, city, payment, method, bank, branch, cheque, chequeDate, month, dateNumber, gotra })
-              const decryptData = decrypt(
-                secrete,
-                "vRu9Pnhkuu9l93waNd79uIYltDVDozmZ4/CrAf67Ud8="
-              );
-              console.log("decrypt data within create-order", decryptData);
-              const data = JSON.parse(decryptData);
-              const paymentUrl = data.paymentUrl;
-              console.log(paymentUrl);
-              axios.post("/receipt/create-receipt", postData);
-              window.location.href = paymentUrl;
-            }
-          })
-          .catch((error) => console.log(error));
-      } else {
-        axios
-          .post("/receipt/payouttwo", createOrderData)
-          .then((res) => {
-            const secrete = res.data.message;
-            if (secrete) {
-              // setReceipt({ pawti, name, date, mobile, email, forWhich, amount, state, day, city, payment, method, bank, branch, cheque, chequeDate, month, dateNumber, gotra })
-              const decryptData = decrypt(
-                secrete,
-                "2Q+5FpQVfZaM+b5XSuvpB8hW3dGAQkNhLSYNMgW1zAQ="
-              );
-              console.log("decrypt data within create-order", decryptData);
-              const data = JSON.parse(decryptData);
-              const paymentUrl = data.paymentUrl;
-              console.log(paymentUrl);
-              axios.post("/receipt/create-receipt", postData);
-              window.location.href = paymentUrl;
-            }
-          })
-          .catch((error) => console.log(error));
-      }
+      axios
+        .post("/receipt/payout", createOrderData)
+        .then((res) => {
+          const secrete = res.data.message;
+          if (secrete) {
+            // setReceipt({ pawti, name, date, mobile, email, forWhich, amount, state, day, city, payment, method, bank, branch, cheque, chequeDate, month, dateNumber, gotra })
+            const decryptData = decrypt(
+              secrete,
+              "nAHUtRh3tRVn/YhIFWQW448Co0E1EQjAMppR8gMwbqs="
+            );
+            console.log("decrypt data within create-order", decryptData);
+            const data = JSON.parse(decryptData);
+            const paymentUrl = data.paymentUrl;
+            console.log(paymentUrl);
+            axios.post("/receipt/create-receipt", postData);
+            window.location.href = paymentUrl;
+          }
+        })
+        .catch((error) => console.log(error));
     }
   };
 
   // lists
   const stateList = country_state_district.getAllStates();
   const forWhichList = [
-    { purpose: "अन्नछत्र" },
-    { purpose: "देणगी" },
-    { purpose: "शाश्वत पूजा" },
-    { purpose: "नंदादीप" },
-    { purpose: "शांती" },
-    { purpose: "जावळ" },
-    { purpose: "उपनयन" },
-    { purpose: "फोटो" },
-    { purpose: "  प्रकाशन" },
-    { purpose: "अ‍ॅडव्हान्स" },
-    { purpose: "बिज मंत्र" },
-    { purpose: "रांगोळी छाप" },
-    // { purpose: "इटार" },
-    { purpose: "धर्मशाला" },
-    { purpose: "जीर्णोद्धार" },
-    { purpose: "पाद्य पूजा कर - ₹30", amount: 30 },
-    { purpose: "पंचामृत पूजा कर - ₹50", amount: 50 },
-    { purpose: "अभिषेक कर - ₹100 ", amount: 100 },
-    { purpose: " सोळखांबा स्वच्छता- ₹50 ", amount: 50 },
-
-    { purpose: "इतर" },
+    { purpose: "Sankalp Abhishek", amount: "50" },
+    { purpose: "Abhishek by hand", amount: "150" },
+    { purpose: "Pawan Abhishek", amount: "500" },
+    { purpose: "Festival Food Donation Service", amount: "500" },
+    { purpose: "Daily Flower Service", amount: "500" },
+    { purpose: "Daily Food Donation Service", amount: "500" },
+    { purpose: "Satyadatta Pooja", amount: "750" },
+    { purpose: "Daily Flower Service (Thursday)", amount: "1000" },
+    { purpose: "Daily Food Donation Service (Thursday)", amount: "1000" },
+    { purpose: "SMT. Dutt Yag", amount: "11111" },
+    { purpose: "Other" },
   ];
   // const souvenirList = [
   //   { type: "Front Page (cover)", amount: "3500000" },
