@@ -8,7 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import ReactToPdf from "react-to-pdf";
 import axios from "axios";
-import { Box, CircularProgress, IconButton } from "@mui/material";
+import { Box, CircularProgress, IconButton, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import VisibilityTwoToneIcon from "@mui/icons-material/VisibilityTwoTone";
@@ -17,10 +17,18 @@ import PdfBody from "./PdfBody";
 import DonationReceipt from "./DonationReceipt";
 import PrintIcon from "@mui/icons-material/Print";
 import { useTranslation } from "react-i18next";
+import {
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
+import "./ReceiptManagement.css";
 
 const ReceiptManagement = () => {
   let pdfRef = React.createRef();
   const navigate = useNavigate();
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [originalReceipts, setOriginalReceipts] = useState([]);
 
   const [receipts, setReceipts] = useState([]);
   const [receiptsSelected, setReceiptsSelected] = useState([]);
@@ -33,7 +41,9 @@ const ReceiptManagement = () => {
   // effects
   useEffect(() => {
     axios.post("/receipt/get-receipt", {}).then((res) => {
-      console.log(res.data.packages);
+      //console.log(res.data.packages);
+      setOriginalReceipts(res.data.packages);
+
       setReceipts(res.data.packages);
       setLoading(false);
     });
@@ -138,9 +148,61 @@ const ReceiptManagement = () => {
       </div>
     );
   }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // format selectedDate to 'dd-mm-yyyy' format
+    const options = { day: "2-digit", month: "2-digit", year: "numeric" };
+    let selectedDateFormatted = selectedDate.toLocaleDateString(
+      "en-IN",
+      options
+    );
+    // replace forward slash with hyphen
+    selectedDateFormatted = selectedDateFormatted.replace(/\//g, "-");
+    // filter the original receipts data by comparing their receiptDate to the selected date
+    const filteredReceipts = originalReceipts.filter((receipt) => {
+      return receipt.receiptDate === selectedDateFormatted;
+    });
+    setReceipts(filteredReceipts);
+  };
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
+  const handleReset = () => {
+    setSelectedDate(new Date());
+    setReceipts(originalReceipts);
+    console.log(receipts);
+  };
 
   return (
     <div>
+      <div className="date-filter">
+        <form onSubmit={handleSubmit}>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <KeyboardDatePicker
+              disableToolbar
+              variant="inline"
+              format="MM/dd/yyyy"
+              margin="normal"
+              id="date-picker-inline"
+              label="Select Date"
+              value={selectedDate}
+              onChange={handleDateChange}
+              KeyboardButtonProps={{
+                "aria-label": "change date",
+              }}
+              className="datePicker"
+            />
+          </MuiPickersUtilsProvider>
+          <button className="button-5" type="submit">
+            Filter by Date
+          </button>
+        </form>
+        <button className="button-6" onClick={handleReset}>
+          Reset Filter
+        </button>
+      </div>
+
       <Paper sx={{ width: "100%" }}>
         <TableContainer>
           <Table>
