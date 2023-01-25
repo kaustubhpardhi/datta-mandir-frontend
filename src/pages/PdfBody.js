@@ -10,62 +10,58 @@ import moment from "moment";
 const getPageMargins = () => {
   const pageStyle = `
 @page {
-    marks: crop cross;
-    margin: 20px;
-    margin-left: 2in;
-    margin-top:160px;
+  marks: crop cross;
+  margin: 20px;
+  margin-left: 2in;
 
 }
 
 @media all {
 .pagebreak {
-    display: none;
+  display: none;
 }
 }
 
 @media print {
-    .pagebreak {
-        page-break-before: always;
-    }
-    .pdfBody{
-        height: 5in;
-        width: 4in;
-        padding: 12px !important;
-    }
+  .pagebreak {
+      page-break-before: always;
+  }
+  .pdfBody{
+      height: 6in;
+      width: 4in;
+      padding: 12px !important;
+  }
 
-    .pdfBody h5{
-        font-size: 12px !important;
-    }
-    .printFlex{
-        display: flex;
-    }
-    .printFlex > div{
-        width: 50%;
-    }
-    .printFlex img{
-        width:  1.8in;
-        height: 1in;
-    }
+  .pdfBody h5{
+      font-size: 12px !important;
+  }
+  .printFlex{
+      display: flex;
+  }
+  .printFlex > div{
+      width: 50%;
+  }
+  .printFlex img{
+      width:  1.8in;
+      height: 3in;
+  }
 
-    .pdfTable {
-        font-size: 10px !important;
-    }
-    .pdfBottom{
-        display: flex
-    }
-    .pdfBottomFirst{
-        width: 66%;
-        font-size: 10px !important;
-    }
-    .pdfBottomImg{
-        width: 1in !important;
-    }
-    .pdfAmount{
-        font-size: 14px !important;
-    }
-    // .pdfGodImage{
-    //   height:20px;
-    // }
+  .pdfTable {
+      font-size: 10px !important;
+  }
+  .pdfBottom{
+      display: flex
+  }
+  .pdfBottomFirst{
+      width: 66%;
+      font-size: 10px !important;
+  }
+  .pdfBottomImg{
+      width: 1in !important;
+  }
+  .pdfAmount{
+      font-size: 14px !important;
+  }
 }
 `;
   return pageStyle;
