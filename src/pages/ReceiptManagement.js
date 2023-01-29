@@ -27,6 +27,7 @@ import "./ReceiptManagement.css";
 const ReceiptManagement = () => {
   let pdfRef = React.createRef();
   const navigate = useNavigate();
+
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [originalReceipts, setOriginalReceipts] = useState([]);
 
@@ -208,22 +209,33 @@ const ReceiptManagement = () => {
           <Table>
             <TableHead>
               <TableRow>
+                <TableCell align="center"> {t("Serial No.")} </TableCell>
                 <TableCell align="center"> {t("receipt")} </TableCell>
                 <TableCell align="center"> {t("name")}</TableCell>
                 <TableCell align="center"> {t("purpose")} </TableCell>
                 <TableCell align="center"> {t("amount")} </TableCell>
+                <TableCell align="center"> Payment Mode </TableCell>
+
                 {user.role === "admin" && (
                   <TableCell align="center"> {t("options")}</TableCell>
                 )}
               </TableRow>
             </TableHead>
             <TableBody>
-              {receipts.map((row) => (
+              {receipts.reverse().map((row, index) => (
                 <TableRow key={row.pawatiNumber} hover role="checkbox">
+                  <TableCell align="center">
+                    {receipts.length - index}{" "}
+                  </TableCell>
                   <TableCell align="center"> {row.pawatiNumber} </TableCell>
                   <TableCell align="center"> {row.Name} </TableCell>
                   <TableCell align="center"> {row.purpose} </TableCell>
                   <TableCell align="center"> &#x20B9; {row.amount} </TableCell>
+                  <TableCell align="center">
+                    {" "}
+                    {row.modeOfPayment.mode}{" "}
+                  </TableCell>
+
                   {user.role === "admin" && (
                     <TableCell align="center">
                       <IconButton
