@@ -755,6 +755,7 @@ const BillingFormNoAuth = () => {
             // setReceipt({ pawti, name, date, mobile, email, forWhich, amount, state, day, city, payment, method, bank, branch, cheque, chequeDate, month, dateNumber, gotra })
             const decryptData = decrypt(
               secrete,
+              //"vT11bhGTmZHslsUNYl1Mh9H/wMuuKww/Mo7gaoe8YBg="
               "nAHUtRh3tRVn/YhIFWQW448Co0E1EQjAMppR8gMwbqs="
             );
             console.log("decrypt data within create-order", decryptData);
