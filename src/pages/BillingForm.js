@@ -202,6 +202,12 @@ const BillingForm = () => {
           chequeNumber: cheque,
         },
       };
+    } else if (payment === "offline" && method === "online") {
+      postData.modeOfPayment = {
+        Amount: Number(amount),
+
+        mode: "Online",
+      };
     } else {
       postData.modeOfPayment = {
         Online: Number(amount),
@@ -736,6 +742,13 @@ const BillingForm = () => {
                 onChange={(e) => setMethod(e.target.value)}
                 control={<Radio />}
                 label={t("chq-dd")}
+              />
+              <FormControlLabel
+                value="online"
+                checked={method === "online"}
+                onChange={(e) => setMethod(e.target.value)}
+                control={<Radio />}
+                label="Online"
               />
             </RadioGroup>
           </FormControl>
