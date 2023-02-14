@@ -17,6 +17,7 @@ import DownloadExcelButton from "./pages/DownloadExcelButton";
 import { ReceiptContext } from "./context/ReceiptContext";
 import "react-datepicker/dist/react-datepicker.css";
 import GenerateThanks from "./pages/GenerateThanks";
+import Dashboard from "./pages/Dashboard";
 import Footer from "./pages/Footer";
 const drawerWidth = 280;
 
@@ -45,7 +46,7 @@ function App() {
   return (
     <div className="app">
       <ReceiptContext.Provider value={{ receipt, setReceipt }}>
-        <Box sx={{ mt: 5 }}>
+        <Box sx={{ mt: 0 }}>
           <div style={{ display: "flex" }}>
             <Drawer
               sideBar={sideBar}
@@ -99,6 +100,8 @@ function App() {
                     </RequireAuth>
                   }
                 />
+                <Route path="/dashboard" element={<Dashboard />} />
+
                 <Route path="/success" element={<Success />} />
                 <Route path="/failed" element={<Failed />} />
                 <Route path="/login" element={<Login />} />

@@ -7,6 +7,8 @@ import AppBarCustom from "./AppBarCustom";
 import DrawerListItem from "./DrawerListItem";
 import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -60,6 +62,9 @@ export default function PersistentDrawerLeft({
           </Box>
           <NavLink className="navLink" to="/billing">
             <DrawerListItem text={t("receipt")} icon={<ReceiptLongIcon />} />
+          </NavLink>
+          <NavLink className="navLink" to="/dashboard">
+            <DrawerListItem text="Dashboard" icon={<DashboardIcon />} />
           </NavLink>
           <NavLink className="navLink" to="/receipt-management">
             <DrawerListItem text={t("receipt-m")} icon={<ListAltIcon />} />
