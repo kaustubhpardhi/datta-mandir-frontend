@@ -85,7 +85,7 @@ const theme = createTheme({
 });
 
 // axios
-axios.defaults.baseURL = "https://y6ppzb.deta.dev";
+axios.defaults.baseURL = "https://datta-mandir.onrender.com";
 //axios.defaults.baseURL = "http://localhost:8081/";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
