@@ -19,6 +19,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import GenerateThanks from "./pages/GenerateThanks";
 import Dashboard from "./pages/Dashboard";
 import Footer from "./pages/Footer";
+import { useEffect } from "react";
+
 const drawerWidth = 280;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
@@ -43,6 +45,46 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
 function App() {
   const [sideBar, setSideBar] = useState(false);
   const [receipt, setReceipt] = useState({});
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      localStorage.removeItem("user");
+    };
+
+    const handleUnload = (event) => {
+      if (!event.persisted) {
+        localStorage.removeItem("user");
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    window.addEventListener("unload", handleUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      window.removeEventListener("unload", handleUnload);
+    };
+  }, []);
+  useEffect(() => {
+    // Set Cache-Control: no-store header
+    const setNoStoreHeader = () => {
+      const meta = document.createElement("meta");
+      meta.httpEquiv = "Cache-Control";
+      meta.content = "no-store";
+      document.head.appendChild(meta);
+    };
+
+    // Set Pragma: no-cache header
+    const setNoCacheHeader = () => {
+      const meta = document.createElement("meta");
+      meta.httpEquiv = "Pragma";
+      meta.content = "no-cache";
+      document.head.appendChild(meta);
+    };
+
+    setNoStoreHeader();
+    setNoCacheHeader();
+  }, []);
+
   return (
     <div className="app">
       <ReceiptContext.Provider value={{ receipt, setReceipt }}>
@@ -100,7 +142,14 @@ function App() {
                     </RequireAuth>
                   }
                 />
-                <Route path="/dashboard" element={<Dashboard />} />
+                <Route
+                  path="/dashboard"
+                  element={
+                    <RequireAuth>
+                      <Dashboard />
+                    </RequireAuth>
+                  }
+                />
 
                 <Route path="/success" element={<Success />} />
                 <Route path="/failed" element={<Failed />} />
